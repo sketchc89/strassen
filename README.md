@@ -4,7 +4,7 @@ Linear algebra library that implements matrix transpose and multiplication. Name
 
 ## Design Choices
 
-* Implemented as a template library and care was taken to make as many errors occur at compile time as possible
+* Implemented as a template library. Care was taken to surface as many errors as possible at compile time rather than runtime
 * Matrices are statically allocated so the size of matrices must be known at compile time
 * Compile-time failures - matrix multiplication with invalid dimensions, matrix multiplication with unequal types
 * Implements naive matrix multiplication. [Strassen's algorithm](https://en.wikipedia.org/wiki/Strassen_algorithm) and other very efficient matrix multiplication algos are only more efficient for large matrices.
@@ -27,7 +27,8 @@ make -j
 
 ## Using
 
-The best documentation are the unit tests located [here](./test/TestStrassen.cpp)
+The best documentation are the unit tests located [here](./test/TestStrassen.cpp). 
+Note to developer: Documentation below is unit tested. change unit test when documentation changes here
 
 ```C++
 strassen::Mat<double, 3, 2> lhs{{1.1, 2.2}, {3.3, 4.4}, {5.5, 6.6}};
@@ -51,7 +52,8 @@ std::cerr << "Dimensions are (" << tres.dim().first << ',' << tres.dim().second 
 
 ```
 
-
 ## Testing
 
 Run the executable `${BUILD_DIR}/test/testStrassen`
+
+![Unit test success](./gtest.png)
