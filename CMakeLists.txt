@@ -41,10 +41,9 @@ endif()
 # Now simply link your own targets against gtest, gmock,
 # etc. as appropriate
 
-add_library(${CMAKE_PROJECT_NAME}
-            src/strassen.cpp)
+add_library(${CMAKE_PROJECT_NAME} INTERFACE)
 target_include_directories(${CMAKE_PROJECT_NAME}
-                           PUBLIC
+                           INTERFACE
                            include)
 
 add_subdirectory(test)
