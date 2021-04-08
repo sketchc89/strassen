@@ -11,8 +11,8 @@ class Mat {
     static_assert(R > 0 && C > 0, "Dimensions must be positive");
 
 public:
-    /*! @brief default constructor */
-    Mat() = default;
+    /*! @brief default constructor, zero initializes */
+    Mat();
     /*! @brief initialize with 2d initializer list
      *  @code
      *  strassen::Mat<int32_t, 2, 2> mat{{1, 2}, {3, 4}};

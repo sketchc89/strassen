@@ -31,24 +31,33 @@ The best documentation are the unit tests located [here](./test/TestStrassen.cpp
 Note to developer: Documentation below is unit tested. change unit test when documentation changes here
 
 ```C++
-strassen::Mat<double, 3, 2> lhs{{1.1, 2.2}, {3.3, 4.4}, {5.5, 6.6}};
-strassen::Mat<double, 2, 4> rhs{{11.11, 22.22, 33.33, 44.44}, {55.55, 66.66, 77.77, 88.88}};
+TEST(ReadMe, Runs) {
+    strassen::Mat<double, 3, 2> lhs{{1.1, 2.2},  //  
+                                    {3.3, 4.4},
+                                    {5.5, 6.6}};
+    strassen::Mat<double, 2, 4> rhs{{11.11, 22.22, 33.33, 44.44},  //  
+                                    {55.55, 66.66, 77.77, 88.88}};
+    strassen::Mat<double, 3, 4> expected{{134.431, 171.094, 207.757, 244.42},  //  
+                                         {281.083, 366.63, 452.177, 537.724},
+                                         {427.735, 562.166, 696.597, 831.028}};
+    auto res = lhs * rhs;
+    for (int32_t r = 0; r < 3; ++r) {
+        for (int32_t c = 0; c < 4; ++c) {
+            // doubles can be slightly off and haven't written approx equality function
+            EXPECT_THAT(res.get(r, c), DoubleEq(expected.get(r, c)));
+        }   
+    }   
+    std::cerr << "Values are\n" << res;
+    EXPECT_THAT(res.dim().first, Eq(3));
+    EXPECT_THAT(res.dim().second, Eq(4));
+    std::cerr << "Dimensions are (" << res.dim().first << ',' << res.dim().second << ")\n";
 
-auto res = lhs * rhs;
-std::cerr << "Values are\n" << res;
-// prints out:
-// Values are
-// 122.21,146.652,171.094,195.536,
-// 244.42,293.304,Values are
-// 366.63,439.956,513.282,586.608,
-std::cerr << "Dimensions are (" << res.dim().first << ',' << res.dim().second << ")\n";
-// prints out:
-// Dimensions are (3,4)
-
-auto tres = res.transpose();
-std::cerr << "Dimensions are (" << tres.dim().first << ',' << tres.dim().second << ")\n";
-// prints out:
-// Dimensions are (4,3)
+    auto tres = res.transpose();
+    EXPECT_THAT(tres.dim().first, Eq(4));
+    EXPECT_THAT(tres.dim().second, Eq(3));
+    std::cerr << "Dimensions are (" << tres.dim().first << ',' << tres.dim().second << ")\n";
+    SUCCEED();
+}
 
 ```
 

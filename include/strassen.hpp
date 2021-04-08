@@ -13,7 +13,7 @@ Mat<_T, R1, C2> Mat<T, R, C>::operator*(const Mat<_T, R2, C2>& rhs) {
     for (int32_t i = 0; i < R1; ++i) {
         for (int32_t j = 0; j < C2; ++j) {
             for (int32_t k = 0; k < C1; ++k) {
-                res._data[i][j] = _data[i][k] * rhs._data[k][j];
+                res._data[i][j] += _data[i][k] * rhs._data[k][j];
             }
         }
     }
@@ -47,6 +47,10 @@ std::ostream& operator<<(std::ostream& os, const strassen::Mat<T, R, C>& mat) {
     }
     return os;
 }
+
+template <typename T, int32_t R, int32_t C>
+Mat<T, R, C>::Mat()
+        : _data{} {}
 
 template <typename T, int32_t R, int32_t C>
 Mat<T, R, C>::Mat(std::initializer_list<std::initializer_list<T>> l) {

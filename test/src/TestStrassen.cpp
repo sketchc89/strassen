@@ -146,9 +146,21 @@ TEST(Operators, Ostream) {
 }
 
 TEST(ReadMe, Runs) {
-    strassen::Mat<double, 3, 2> lhs{{1.1, 2.2}, {3.3, 4.4}, {5.5, 6.6}};
-    strassen::Mat<double, 2, 4> rhs{{11.11, 22.22, 33.33, 44.44}, {55.55, 66.66, 77.77, 88.88}};
+    strassen::Mat<double, 3, 2> lhs{{1.1, 2.2},  //
+                                    {3.3, 4.4},
+                                    {5.5, 6.6}};
+    strassen::Mat<double, 2, 4> rhs{{11.11, 22.22, 33.33, 44.44},  //
+                                    {55.55, 66.66, 77.77, 88.88}};
+    strassen::Mat<double, 3, 4> expected{{134.431, 171.094, 207.757, 244.42},  //
+                                         {281.083, 366.63, 452.177, 537.724},
+                                         {427.735, 562.166, 696.597, 831.028}};
     auto res = lhs * rhs;
+    for (int32_t r = 0; r < 3; ++r) {
+        for (int32_t c = 0; c < 4; ++c) {
+            // doubles can be slightly off and haven't written approx equality function
+            EXPECT_THAT(res.get(r, c), DoubleEq(expected.get(r, c)));
+        }
+    }
     std::cerr << "Values are\n" << res;
     EXPECT_THAT(res.dim().first, Eq(3));
     EXPECT_THAT(res.dim().second, Eq(4));
