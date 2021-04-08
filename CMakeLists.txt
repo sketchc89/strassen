@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 2.8.2)
 project(strassen)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-# set(CMAKE_CXX_COMPILER /usr/bin/clang++-6.0)
 
 add_compile_options(-Wall)
 add_compile_options(-Wextra)
@@ -41,9 +40,13 @@ endif()
 # Now simply link your own targets against gtest, gmock,
 # etc. as appropriate
 
+
+
+# Project library build
 add_library(${CMAKE_PROJECT_NAME} INTERFACE)
 target_include_directories(${CMAKE_PROJECT_NAME}
                            INTERFACE
                            include)
 
+# Project test build
 add_subdirectory(test)
