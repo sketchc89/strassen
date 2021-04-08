@@ -105,7 +105,7 @@ TEST_F(MatFixture, Multiplies) {
 }
 
 TEST_F(MatFixture, TransposesDimensions) {
-    auto res = transpose(lhs);
+    auto res = lhs.transpose();
 
     auto dim = res.dim();
 
@@ -114,7 +114,7 @@ TEST_F(MatFixture, TransposesDimensions) {
 }
 
 TEST_F(MatFixture, TransposesValues) {
-    auto res = transpose(lhs);
+    auto res = lhs.transpose();
 
     EXPECT_THAT(res.get(0, 0), Eq(1));
     EXPECT_THAT(res.get(0, 1), Eq(2));
@@ -129,5 +129,36 @@ TEST(Access, SetsAndGets) {
     ASSERT_THAT(mat.get(0, 0), DoubleEq(val));
 }
 
+TEST(Operators, Equality) {
+    Mat<int32_t, 2, 2> m{{1, 2}, {3, 4}}, n{{1, 2}, {3, 4}};
+    EXPECT_TRUE(m == n);
+}
+
+TEST(Operators, Inequality) {
+    Mat<int32_t, 2, 2> m{{1, 2}, {3, 4}}, n{{1, 2}, {3, 4}};
+    EXPECT_FALSE(m != n);
+}
+
+TEST(Operators, Ostream) {
+    Mat<int32_t, 2, 2> m{{1, 2}, {3, 4}};
+    std::cerr << m;
+    SUCCEED();
+}
+
+TEST(ReadMe, Runs) {
+    strassen::Mat<double, 3, 2> lhs{{1.1, 2.2}, {3.3, 4.4}, {5.5, 6.6}};
+    strassen::Mat<double, 2, 4> rhs{{11.11, 22.22, 33.33, 44.44}, {55.55, 66.66, 77.77, 88.88}};
+    auto res = lhs * rhs;
+    std::cerr << "Values are\n" << res;
+    EXPECT_THAT(res.dim().first, Eq(3));
+    EXPECT_THAT(res.dim().second, Eq(4));
+    std::cerr << "Dimensions are (" << res.dim().first << ',' << res.dim().second << ")\n";
+
+    auto tres = res.transpose();
+    EXPECT_THAT(tres.dim().first, Eq(4));
+    EXPECT_THAT(tres.dim().second, Eq(3));
+    std::cerr << "Dimensions are (" << tres.dim().first << ',' << tres.dim().second << ")\n";
+    SUCCEED();
+}
 
 }  // namespace testing
