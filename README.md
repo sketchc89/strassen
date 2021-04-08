@@ -7,7 +7,7 @@ Linear algebra library that implements matrix transpose and multiplication. Name
 * Implemented as a template library. Care was taken to surface as many errors as possible at compile time rather than runtime
 * Matrices are statically allocated so the size of matrices must be known at compile time
 * Compile-time failures - matrix multiplication with invalid dimensions, matrix multiplication with unequal types
-* Implements naive matrix multiplication. [Strassen's algorithm](https://en.wikipedia.org/wiki/Strassen_algorithm) and other very efficient matrix multiplication algos are only more efficient for large matrices.
+* Implements naive matrix multiplication. [Strassen's algorithm](https://en.wikipedia.org/wiki/Strassen_algorithm) and other very efficient matrix multiplication algos are only more efficient for large matrices and exact types like double. The error when using floats grows quickly.
 * A variable size matrix library has the advantages of ease of use and less templating, but suffers from memory fragmentation which can potentially hurt performance. If a variable size matrix were needed I would implement it as a separate class (similar to Matrix2d vs MatrixXd in the popular linear algebra library Eigen)
 
 
