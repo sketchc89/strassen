@@ -1,6 +1,6 @@
 # Strassen
 
-Linear algebra library that implements matrix transpose and multiplication. Named after [Volker Strassen](https://en.wikipedia.org/wiki/Volker_Strassen) famous for O(n^2.6) matrix multiplication algorithm.
+Linear algebra library that implements matrix transpose and multiplication. Named after [Volker Strassen](https://en.wikipedia.org/wiki/Volker_Strassen) famous for O(n^2.6) matrix multiplication algorithm. Assignment focused on API design rather than algo performance
 
 ## Design Choices
 
